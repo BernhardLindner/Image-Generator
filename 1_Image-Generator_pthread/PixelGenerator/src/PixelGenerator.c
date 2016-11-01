@@ -1,19 +1,19 @@
 /*
  * FILE = MAIN:       /src/PixelGenerator.c
  *
- * RELATED FILES:    	*.c                              *.h
- * 										generateKey.c                    generateKey.h
- * 										numberOfPixel.c                  numberOfPixel.h
- * 										cleanup.c                        cleanup.h
- * 										cntrl_c_handler.c                cntrl_c_handler.h
- * 										colorpalette.c                   colorpalette.h
- * 										mandelbrot.c                     mandelbrot.h
- * 										thread_handler.c                 thread_handler.h
- * 										install_signal_handler.c				 install_signal_handler.h
- * 										interrupt_handler.c              interrupt_handler.h
- * 										cleanup_thread_handler.c         cleanup_thread_handler.h
- * 										                           			 global_ids.h
- * 																										 universalSettings.h
+ * RELATED FILES:     *.c                              *.h
+ *                    generateKey.c                    generateKey.h
+ *                    numberOfPixel.c                  numberOfPixel.h
+ *                    cleanup.c                        cleanup.h
+ *                    cntrl_c_handler.c                cntrl_c_handler.h
+ *                    colorpalette.c                   colorpalette.h
+ *                    mandelbrot.c                     mandelbrot.h
+ *                    thread_handler.c                 thread_handler.h
+ *                    install_signal_handler.c         install_signal_handler.h
+ *                    interrupt_handler.c              interrupt_handler.h
+ *                    cleanup_thread_handler.c         cleanup_thread_handler.h
+ *                                                     global_ids.h
+ *                                                     universalSettings.h
  *
  * DEPENDS ON:        imageWriter program
  *

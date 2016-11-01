@@ -2,13 +2,13 @@
  * FILE = /src/thread_handler.c
  *
  * RELATED FILES:     *.c                              *.h
- * 									  numberOfPixel.c					         numberOfPixel.h
- * 										install_signal_handler.c				 install_signal_handler.h
- * 										interrupt_handler.c              interrupt_handler.h
- * 										cleanup_thread_handler.c         cleanup_thread_handler.h
- * 											 															 global_ids.h
- * 											 															 thread_handler.h
- * 											 															 universalSettings.h
+ *                    numberOfPixel.c                  numberOfPixel.h
+ *                    install_signal_handler.c         install_signal_handler.h
+ *                    interrupt_handler.c              interrupt_handler.h
+ *                    cleanup_thread_handler.c         cleanup_thread_handler.h
+ *                                                     global_ids.h
+ *                                                     thread_handler.h
+ *                                                     universalSettings.h
  *
  * The thandler function is the real image generating function.
  * The folowing code is an adaption of the pseudo code to generate an image
