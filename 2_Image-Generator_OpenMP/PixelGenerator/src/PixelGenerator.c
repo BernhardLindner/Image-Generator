@@ -202,7 +202,6 @@ int main(int argc, char *argv[])
 /* G E N E R A T E  C O L O R  P A L E T T E  &  I M A G E  B U F F E R      */
 /*---------------------------------------------------------------------------*/
 
-
 /*
  * Creating a very primitive colorpalette. The maximum value of iterations
  * for calculating the mandelbrot set (see thread_handler.c) is set to 1023
