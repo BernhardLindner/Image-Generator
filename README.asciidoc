@@ -215,7 +215,7 @@ better use of the OpenCL memory model.
 == ADDITIONAL INFORMATION
 
 For the versions using pthreads the number of threads is set to 8
-(number_of_threads in /PixelGenerator/include/thread_handler.h)
+link:1_Image-Generator_pthread/PixelGenerator/include/thread_handler.h[/PixelGenerator/include/thread_handler.h]
 but changing it to 1, 2 or 4 is also possible. If the HEIGHT of the
 Image (which is set to 600) divided by the number of threads you want to use,
 results in an integer value, it should be possible to use it.
