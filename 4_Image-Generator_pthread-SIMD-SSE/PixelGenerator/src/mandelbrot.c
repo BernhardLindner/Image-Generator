@@ -2,9 +2,9 @@
  * FILE = /src/mandelbrot.c
  *
  * RELATED FILES:     *.c                              *.h
- * 										thread_handler.c                 thread_handler.h
- * 										numberOfPixel.c				           numberOfPixel.h
- * 											 														   global_ids.h
+ *                    thread_handler.c                 thread_handler.h
+ *                    numberOfPixel.c                  numberOfPixel.h
+ *                                                     global_ids.h
  *
  * This function takes a colorpalette created by the function
  * create_color_palette() and the unsigned char *pointer to a local imagebuffer
@@ -34,7 +34,7 @@
 
 int generate_image(unsigned char palette[][3], unsigned char *imagebuffer)
 {
-  
+
 /*
  * int mandel_segment can be set to 1, 2 or 3 to zoom into three different
  * segments of the mandelbrot set.

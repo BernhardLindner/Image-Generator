@@ -1,8 +1,8 @@
 /*
  * FILE = /src/mandelbrot.c
  *
- * RELATED FILES:     *.c                             *.h
- * 										numberOfPixel.c				          numberOfPixel.h
+ * RELATED FILES:     *.c                              *.h
+ *                    numberOfPixel.c                  numberOfPixel.h
  *
  * This function takes a colorpalette created by the function
  * create_color_palette() and the unsigned char *pointer to a local imagebuffer

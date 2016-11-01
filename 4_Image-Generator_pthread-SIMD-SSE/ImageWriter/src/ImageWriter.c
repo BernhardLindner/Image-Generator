@@ -1,14 +1,14 @@
 /*
  * FILE = MAIN:       /src/ImageWriter.c
  *
- * RELATED FILES:    	*.c                              *.h
- * 										generateKey.c                    generateKey.h
- * 										numberOfPixel.c                  numberOfPixel.h
- * 										cleanupWriter.c                  cleanupWriter.h
- * 										cntrl_c_handler_Writer.c         cntrl_c_handler_Writer.h
- * 										install_signal_handler.C         install_signal_handler.h
- * 										                                 universalSettings.h
- * 																										 global_ids_W.h
+ * RELATED FILES:     *.c                              *.h
+ *                    generateKey.c                    generateKey.h
+ *                    numberOfPixel.c                  numberOfPixel.h
+ *                    cleanupWriter.c                  cleanupWriter.h
+ *                    cntrl_c_handler_Writer.c         cntrl_c_handler_Writer.h
+ *                    install_signal_handler.C         install_signal_handler.h
+ *                                                     universalSettings.h
+ *                                                     global_ids_W.h
  *
  * DEPENDS ON:        pixelGenerator program
  *
