@@ -224,10 +224,10 @@ For the OpenCL version it can be changed if the kernel should be executed on
 the CPU or GPU by changing COMPUTE_DEVICE in
 link:3_Image-Generator_OpenCL/PixelGenerator/include/mandelbrot.h[/include/mandelbrot.h]
 
-In the file link:1_Image-Generator_pthread/shared/include/numberOfPixels.h[/shared/include/numberOfPixels.h]
+In the file link:1_Image-Generator_pthread/shared/include/numberOfPixel.h[/shared/include/numberOfPixel.h]
 LARGE_IMAGE can be set to 1 or 0. Setting large image to 1 will generate
 images of 2560 x 1920. Setting it to 0 will generate images of 800 x 600.
-In the file link:1_Image-Generator_pthread/shared/src/numberOfPixels.c[/shared/include/numberOfPixels.c]
+In the file link:1_Image-Generator_pthread/shared/src/numberOfPixel.c[/shared/src/numberOfPixel.c]
 you can manually change the width and height of the image.
 If you set LARGE_IMAGE to 1 the shared memory segment may be bigger than
 the maximum shared memory size set on your system. So you have to increase
