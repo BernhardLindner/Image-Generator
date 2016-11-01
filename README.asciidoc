@@ -160,7 +160,7 @@ As long as your CPU supports AVX you are good to go.
 
 The link:5_Image-Generator_pthread-SIMD-AVX/PixelGenerator/makefile[makefile] will link -lpthread and set optimizations to -O3 -mavx -ffast-math
 
-== Performance results
+== PERFORMANCE RESULTS
 
 Amount of pictures after about one minute of execution on a
 2012er MacBook Pro with i7 3615QM @2,3GHz and GeForce GT 650M:
