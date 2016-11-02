@@ -47,7 +47,7 @@ void *thandler(void *ptr)
  * The cleanup handler will be invoked when the thread exits.
  *
  * cleanup_thread_handler() is defined in cleanup_thread_handler.c.
- * As there is nothing to cleanup from inside the cleanup handler serves soly
+ * As there is nothing to cleanup from inside the cleanup handler serves solely
  * for debugging the code.
  */
 
@@ -83,7 +83,7 @@ void *thandler(void *ptr)
  * *hdata->am_I_alive is a pointer to the global
  * g_thread_aliveness[number_of_threads] variable. It is used to check if a
  * thread is active and needs to be killed by the cntrl_c_handler.
- * See cleanup.c for more detail.
+ * See cleanup.c for more details.
  */
 
   (*hdata->am_I_alive) = 0;
