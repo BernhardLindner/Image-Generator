@@ -86,7 +86,7 @@ void *thandler(void *ptr)
  * *hdata->am_I_alive is a pointer to the global
  * g_thread_aliveness[number_of_threads] variable. It is used to check if a
  * thread is active and needs to be killed by the cntrl_c_handler.
- * See cleanup.c for more detail.
+ * See cleanup.c for more details.
  */
 
   (*hdata->am_I_alive) = 0;
