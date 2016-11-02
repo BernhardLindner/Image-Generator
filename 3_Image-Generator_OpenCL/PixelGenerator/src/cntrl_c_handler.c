@@ -18,7 +18,6 @@
 #include <sys/sem.h>
 #include <cleanup.h>
 #include "global_ids.h"
-#include "thread_handler.h"
 
 void cntrl_c_handler(int signum)
 {
