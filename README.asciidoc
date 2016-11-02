@@ -55,7 +55,7 @@ NOTE: All of the above mentioned methods of parallelization are implemented
 solely to calculated pixels of one image in parallel and not to generate several
 images at once.
 
-== VERSION
+== Version
 
 1.0
 
@@ -64,7 +64,7 @@ been a first attempt of implementing them to improve the performance of
 the image generation. The implementation is mostly try and error and for that
 matter should not be viewed as the right way to do so.
 
-== USEAGE
+== Useage
 
 The Image-Generator folder contains five subdirectories each representing a full
 version of the "ImageWriter" and "PixelGenerator" program with respective
@@ -102,13 +102,13 @@ To Quit the programs you have to press "ctrl-c" as both programs run in an
 endless loop. Terminating the "PixelGenerator" by pressing ctrl-c will
 automatically shut down the "ImageWriter" program.
 
-== TESTED
+== Tested
 
 on OSX 10.9.5 and Fedora 23 with image WIDTH and HEIGHT set to 800x600,
 2560x1920 and number of threads specified in thread_handler.h set to 1, 2, 4
 and 8.
 
-== PREREQUISITE
+== Prerequisite
 
 === link:1_Image-Generator_pthread[1_Image-Generator_pthread]
 
@@ -160,12 +160,12 @@ As long as your CPU supports AVX you are good to go.
 
 The link:5_Image-Generator_pthread-SIMD-AVX/PixelGenerator/makefile[makefile] will link -lpthread and set optimizations to -O3 -mavx -ffast-math
 
-== PERFORMANCE RESULTS
+== Performance Results
 
 Amount of pictures after about one minute of execution on a
-2012er MacBook Pro with i7 3615QM @2,3GHz and GeForce GT 650M:
+2012 MacBook Pro with i7 3615QM @2,3GHz and GeForce GT 650M:
 
-Image resolution 800x600, max iterations 1023:
+*Image resolution 800x600, max iterations 1023:*
 
 OSX 10.9.5
 
@@ -186,7 +186,7 @@ FEDORA 23
 * Image-Generator_pthread-SIMD-SSE -> 502 Images
 * Image-Generator_pthread-SIMD-AVX -> 850 Images
 
-Image resolution 2560x1920, max iterations 1023:
+*Image resolution 2560x1920, max iterations 1023:*
 
 OSX 10.9.5
 
@@ -212,7 +212,7 @@ results in slower performance than hardcoding width and height directly into
 the kernelsource. The OpenCL performance could probably be improved by making
 better use of the OpenCL memory model.
 
-== ADDITIONAL INFORMATION
+== Additional Information
 
 For the versions using pthreads the number of threads is set to 8
 link:1_Image-Generator_pthread/PixelGenerator/include/thread_handler.h[/PixelGenerator/include/thread_handler.h]
@@ -237,7 +237,7 @@ there are .clang_complete files in the PixelGenerator, ImageWriter and shared
 directory (specifying -I include paths for the atom text editor with
 linter-clang)
 
-== LINKS I FOUND VERY HELPFUL
+== Links I Found Very Helpful
 
 A great introduction to OpenMP:
 
@@ -266,14 +266,13 @@ Intel Intrinsics Guide to SIMD programming:
 
 * https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-== THANKS
+== Thanks
 
 Thank you to Christian Fibich for introducing me to OpenMP, OpenCL and
 providing valuable inputs to advance the project and improve my skills in
 c programming.
 
-
-== LICENSE
+== License
 
 This project is licensed under the terms of the MIT License.
 See link:LICENSE[LICENSE] for details
