@@ -25,7 +25,7 @@ __kernel void mandelbrot(__global unsigned char *imagebuffer,
     x0 = ((xmin + (pixel_x * xp)) / zoom);
 
     double y0;
-    y0 = ((ymin + (pixel_y * yp)) / zoom);
+    y0 = ((ymax - (pixel_y * yp)) / zoom);
 
     double x;
     x = 0.0;
