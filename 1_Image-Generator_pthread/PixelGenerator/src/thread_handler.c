@@ -93,7 +93,7 @@ void *thandler(void *ptr)
   for (int pixel_y = hdata->start_y; pixel_y < hdata->stop_y; pixel_y++)
   {
     double y0;
-    y0 = ((hdata->ymin + (pixel_y * hdata->yp)) / hdata->zoom);
+    y0 = ((hdata->ymax - (pixel_y * hdata->yp)) / hdata->zoom);
 
     for (int pixel_x = 0; pixel_x < WIDTH; pixel_x++)
     {

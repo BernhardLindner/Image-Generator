@@ -83,7 +83,7 @@ char * kernelsource =
 "    x0 = ((xmin + (pixel_x * xp)) / zoom);\n"
 "\n"
 "    double y0;\n"
-"    y0 = ((ymin + (pixel_y * yp)) / zoom);\n"
+"    y0 = ((ymax - (pixel_y * yp)) / zoom);\n"
 "\n"
 "    double x;\n"
 "    x = 0.0;\n"

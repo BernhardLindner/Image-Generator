@@ -109,7 +109,7 @@ void *thandler(void *ptr)
   for (int pixel_y = hdata->start_y; pixel_y < hdata->stop_y; pixel_y++)
   {
     double h1y0;
-    h1y0 = ((hdata->ymin + (pixel_y * hdata->yp)) / hdata->zoom);
+    h1y0 = ((hdata->ymax - (pixel_y * hdata->yp)) / hdata->zoom);
 
     __m256d y0 = _mm256_set_pd(h1y0, h1y0, h1y0, h1y0);
     __m256d h3y0 = _mm256_mul_pd(y0, y0);
