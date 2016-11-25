@@ -218,7 +218,7 @@ int setup_OpenCL(unsigned char *palette, void *OpenCLdata)
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to create a command commands!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
