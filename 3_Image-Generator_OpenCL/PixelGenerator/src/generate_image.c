@@ -56,16 +56,12 @@ int generate_image(unsigned char *imagebuffer, void *OpenCLdata)
 /*---------------------------------------------------------------------------*/
 
   cl_int err;
-  err =  clSetKernelArg(data->kernel, 0, sizeof(cl_mem), &data->imgb);
-  err |= clSetKernelArg(data->kernel, 1, sizeof(double), &xmin);
+  err  = clSetKernelArg(data->kernel, 1, sizeof(double), &xmin);
   err |= clSetKernelArg(data->kernel, 2, sizeof(double), &xmax);
   err |= clSetKernelArg(data->kernel, 3, sizeof(double), &ymin);
   err |= clSetKernelArg(data->kernel, 4, sizeof(double), &ymax);
   err |= clSetKernelArg(data->kernel, 5, sizeof(double), &e);
   err |= clSetKernelArg(data->kernel, 6, sizeof(double), &zoom);
-  err |= clSetKernelArg(data->kernel, 7, sizeof(cl_mem), &data->colpb);
-  err |= clSetKernelArg(data->kernel, 8, sizeof(int), &WIDTH);
-  err |= clSetKernelArg(data->kernel, 9, sizeof(int), &HEIGHT);
 
   if (err != CL_SUCCESS)
   {

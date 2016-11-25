@@ -315,5 +315,21 @@ int setup_OpenCL(unsigned char *palette, void *OpenCLdata)
     return EXIT_FAILURE;
   }
 
+  /*---------------------------------------------------------------------------*/
+  /* S E T  K E R N E L  A R G U M E N T S                                     */
+  /*---------------------------------------------------------------------------*/
+
+    err =  clSetKernelArg(data->kernel, 0, sizeof(cl_mem), &data->imgb);
+    err |= clSetKernelArg(data->kernel, 7, sizeof(cl_mem), &data->colpb);
+    err |= clSetKernelArg(data->kernel, 8, sizeof(int), &WIDTH);
+    err |= clSetKernelArg(data->kernel, 9, sizeof(int), &HEIGHT);
+
+    if (err != CL_SUCCESS)
+    {
+      printf("Error: Failed to set kernel arguments! %d\n", err);
+      mem_cleanup_opencl(data);
+      return EXIT_FAILURE;
+    }
+
   return EXIT_SUCCESS;
 }
