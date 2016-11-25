@@ -1,20 +1,21 @@
 /*
- * FILE = /src/mandelbrot.c
+ * FILE = /src/setup_OpenCL.c
  *
  * RELATED FILES:     *.c                              *.h
  *                    numberOfPixel.c                  numberOfPixel.h
  *                    mem_cleanup_opencl.c             mem_cleanup_opencl.h
- *                                                     mandelbrot.h
+ *                                                     setup_OpenCL.h
  *                                                     universalSettings.h
  *
  * This function takes a colorpalette created by the function
- * create_color_palette() and the unsigned char *pointer to a local imagebuffer
- * as arguments.
+ * create_color_palette() as an arguments.
  *
- * The generate_image function generates an image of the mandelbrot set
- * with the use of OpenCL.
+ * The setup_OpenCL() function creates an OpenCL program and kernel for
+ * the generation of an image of the mandelbrot set.
+ * The image generation and execution of the kernel happens inside
+ * the generate_image() function.
  *
- * By changing COMPUTE_DEVICE defined in mandelbrot.h the image can be
+ * By changing COMPUTE_DEVICE defined in setup_OpenCL.h the image can be
  * calculated either on the CPU or if available on a GPU.
  *
  * Copyright (c) 2016 Bernhard Lindner
@@ -23,7 +24,7 @@
  * See /LICENSE for details.
  */
 
-#include "mandelbrot.h"
+#include "setup_OpenCL.h"
 #include "numberOfPixel.h"
 #include "universalSettings.h"
 #include "mem_cleanup_opencl.h"
@@ -134,32 +135,14 @@ char * kernelsource =
 "}\n"
 ;
 
-int generate_image(unsigned char *palette, unsigned char *imagebuffer)
+int setup_OpenCL(unsigned char *palette, void *OpenCLdata)
 {
 
 /*
  * struct cl_mem_data defined in mandelbrot.h
  */
 
-  struct cl_mem_data data;
-
-/*
- * int mandel_segment can be set to 1, 2 or 3 to zoom into three different
- * segments of the mandelbrot set.
- */
-
-  int mandel_segment = 2;
-
-/*
- * start parameter for the madelbrot set
- */
-
-  static double xmin = -2.5;
-  static double xmax = 1.5;
-  static double ymin = -1.5;
-  static double ymax = 1.5;
-  static double e = 1;
-  static double zoom = 1;
+  struct cl_mem_data *data = (struct cl_mem_data *) OpenCLdata;
 
 /*---------------------------------------------------------------------------*/
 /* I D E N T I F Y  A  P L A T F O R M                                       */
@@ -172,7 +155,7 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
   if (err < 0)
   {
     perror("Couldn't identify a platform");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -216,11 +199,11 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* C R E A T E  A  C O M P U T E  C O N T E X T                              */
 /*---------------------------------------------------------------------------*/
 
-  data.context = clCreateContext(0, 1, &device, NULL, NULL, &err);
+  data->context = clCreateContext(0, 1, &device, NULL, NULL, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to create a compute context!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -231,23 +214,23 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
   /* OpenCL 2 */
   #if OS_FEDORA
 
-  data.commands = clCreateCommandQueueWithProperties(data.context, device,
-                                                     0, &err);
+  data->commands = clCreateCommandQueueWithProperties(data->context, device,
+                                                      0, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to create a command commands!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
   /* OpenCL 1.2 */
   #else
 
-  data.commands = clCreateCommandQueue(data.context, device, 0, &err);
+  data->commands = clCreateCommandQueue(data->context, device, 0, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to create a command commands!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -257,21 +240,21 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* C R E A T E  M E M O R Y  B U F F E R S                                   */
 /*---------------------------------------------------------------------------*/
 
-  data.imgb = clCreateBuffer(data.context, CL_MEM_READ_WRITE,
+  data->imgb = clCreateBuffer(data->context, CL_MEM_READ_WRITE,
                              sizeof(unsigned char) * MAX_DATA, NULL, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: creating Buffer for imagedata!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
-  data.colpb = clCreateBuffer(data.context, CL_MEM_READ_WRITE,
+  data->colpb = clCreateBuffer(data->context, CL_MEM_READ_WRITE,
                               sizeof(unsigned char) * 3072, NULL, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: creating Buffer for colorpalette!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -279,13 +262,13 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* C R E A T E  A  P R O G R A M  F R O M  K E R N E L S O U R C E           */
 /*---------------------------------------------------------------------------*/
 
-  data.program = clCreateProgramWithSource(data.context, 1,
+  data->program = clCreateProgramWithSource(data->context, 1,
                                            (const char **) &kernelsource,
-                                           NULL, &err);
+                                            NULL, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: Creating program from kernelsource!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -293,17 +276,17 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* B U I L D  T H E  P R O G R A M  E X E C U T A B L E                      */
 /*---------------------------------------------------------------------------*/
 
-  err = clBuildProgram(data.program, 0, NULL, NULL, NULL, NULL);
+  err = clBuildProgram(data->program, 0, NULL, NULL, NULL, NULL);
   if (err != CL_SUCCESS)
   {
     size_t len;
     char buffer[2048];
 
     printf("Error: Failed to build program executable!\n");
-    clGetProgramBuildInfo(data.program, device, CL_PROGRAM_BUILD_LOG,
+    clGetProgramBuildInfo(data->program, device, CL_PROGRAM_BUILD_LOG,
                           sizeof(buffer), buffer, &len);
     printf("%s\n", buffer);
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -311,11 +294,11 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* C R E A T E  T H E  C O M P U T E  K E R N E L                            */
 /*---------------------------------------------------------------------------*/
 
-  data.kernel = clCreateKernel(data.program, "mandelbrot", &err);
+  data->kernel = clCreateKernel(data->program, "mandelbrot", &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to create compute kernel!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -323,13 +306,13 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* W R I T E  C O L O R P A L E T T E  I N T O  B U F F E R                  */
 /*---------------------------------------------------------------------------*/
 
-  err = clEnqueueWriteBuffer(data.commands, data.colpb, CL_TRUE, 0,
+  err = clEnqueueWriteBuffer(data->commands, data->colpb, CL_TRUE, 0,
                              sizeof(unsigned char) * 3072, palette,
                              0, NULL, NULL);
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to write colorpalette to buffer!\n");
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
   }
 
@@ -337,98 +320,16 @@ int generate_image(unsigned char *palette, unsigned char *imagebuffer)
 /* S E T  K E R N E L  A R G U M E N T S                                     */
 /*---------------------------------------------------------------------------*/
 
-  err =  clSetKernelArg(data.kernel, 0, sizeof(cl_mem), &data.imgb);
-  err |= clSetKernelArg(data.kernel, 1, sizeof(double), &xmin);
-  err |= clSetKernelArg(data.kernel, 2, sizeof(double), &xmax);
-  err |= clSetKernelArg(data.kernel, 3, sizeof(double), &ymin);
-  err |= clSetKernelArg(data.kernel, 4, sizeof(double), &ymax);
-  err |= clSetKernelArg(data.kernel, 5, sizeof(double), &e);
-  err |= clSetKernelArg(data.kernel, 6, sizeof(double), &zoom);
-  err |= clSetKernelArg(data.kernel, 7, sizeof(cl_mem), &data.colpb);
-  err |= clSetKernelArg(data.kernel, 8, sizeof(int), &WIDTH);
-  err |= clSetKernelArg(data.kernel, 9, sizeof(int), &HEIGHT);
+  err =  clSetKernelArg(data->kernel, 0, sizeof(cl_mem), &data->imgb);
+  err |= clSetKernelArg(data->kernel, 7, sizeof(cl_mem), &data->colpb);
+  err |= clSetKernelArg(data->kernel, 8, sizeof(int), &WIDTH);
+  err |= clSetKernelArg(data->kernel, 9, sizeof(int), &HEIGHT);
 
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to set kernel arguments! %d\n", err);
-    mem_cleanup_opencl(&data);
+    mem_cleanup_opencl(data);
     return EXIT_FAILURE;
-  }
-
-/*---------------------------------------------------------------------------*/
-/* E X E C U T E  T H E  K E R N E L                                         */
-/*---------------------------------------------------------------------------*/
-
-  const size_t global[2] = {HEIGHT, WIDTH};
-  err = clEnqueueNDRangeKernel(data.commands, data.kernel, 2, NULL, global,
-                               NULL, 0, NULL, NULL);
-  if (err)
-  {
-    printf("Error: Failed to execute kernel!\n");
-    mem_cleanup_opencl(&data);
-    return EXIT_FAILURE;
-  }
-
-/*
- * Wait for the kernel to finish
- */
-
-  err = clFinish(data.commands);
-  if (err)
-  {
-    printf("Error: Waiting for commands to finish!\n");
-    mem_cleanup_opencl(&data);
-    return EXIT_FAILURE;
-  }
-
-/*
- * Write the calculated image back into the imagebuffer
- */
-
-  err = clEnqueueReadBuffer(data.commands, data.imgb, CL_TRUE, 0,
-                            sizeof(unsigned char) * MAX_DATA, imagebuffer,
-                            0, NULL, NULL);
-  if (err != CL_SUCCESS)
-  {
-    printf("Error: Failed to read image back into imagebuffer!\n");
-    mem_cleanup_opencl(&data);
-    return EXIT_FAILURE;
-  }
-
-/*---------------------------------------------------------------------------*/
-/* C L E A N U P                                                             */
-/*---------------------------------------------------------------------------*/
-
-  mem_cleanup_opencl(&data);
-
-/*
- * altering the start parameter to zoom into the madelbrot set.
- */
-
-  if (mandel_segment == 1)
-  {
-    xmin = xmin - 0.005 * e;
-    xmax = xmax - 0.005 * e;
-    ymin = ymin - 0.0062 * e;
-    ymax = ymax - 0.0062 * e;
-    zoom = zoom + 0.01 * e;
-    e++;
-  }
-
-  if (mandel_segment == 2)
-  {
-    xmin = xmin - 0.014 * e;
-    xmax = xmax - 0.014 * e;
-    zoom = zoom + 0.01 * e;
-    e++;
-  }
-
-  if (mandel_segment == 3)
-  {
-    xmin = xmin - 0.015 * e;
-    xmax = xmax - 0.015 * e;
-    zoom = zoom + 0.01 * e;
-    e++;
   }
 
   return EXIT_SUCCESS;

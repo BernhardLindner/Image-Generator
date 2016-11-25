@@ -11,10 +11,12 @@
 #define _global_ids_
 
 #include <stdio.h>
+#include "setup_OpenCL.h"
 
 int g_shmid;
 int g_semid;
 unsigned char *g_buffer;
 unsigned char *g_membuf;
+struct cl_mem_data g_data;
 
 #endif
