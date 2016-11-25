@@ -12,6 +12,9 @@
  * The generate_image function generates an image of the mandelbrot set
  * with the use of OpenCL.
  *
+ * Executing the openCL kernel build inside the setup_OpenCL() function and
+ * changing the start parameters of the mandelbrot set.
+ *
  * Copyright (c) 2016 Bernhard Lindner
  *
  * This file is licensed under the terms of the MIT License.

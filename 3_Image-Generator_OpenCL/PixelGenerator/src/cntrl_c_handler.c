@@ -2,7 +2,8 @@
  * FILE = /src/cntrl_c_handler.c
  *
  * This file holds the function that will be delivered to the signal handler
- * It invokes the cleanup() defined in cleanup.c
+ * It invokes the cleanup() defined in cleanup.c and mem_cleanup_opencl()
+ * defined in mem_cleanup_opencl.h.
  *
  * Copyright (c) 2016 Bernhard Lindner
  *

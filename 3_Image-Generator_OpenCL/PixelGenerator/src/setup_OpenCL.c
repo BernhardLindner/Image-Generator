@@ -8,11 +8,12 @@
  *                                                     universalSettings.h
  *
  * This function takes a colorpalette created by the function
- * create_color_palette() and the unsigned char *pointer to a local imagebuffer
- * as arguments.
+ * create_color_palette() as an arguments.
  *
- * The generate_image function generates an image of the mandelbrot set
- * with the use of OpenCL.
+ * The setup_OpenCL() function creates an OpenCL program and kernel for
+ * the generation of an image of the mandelbrot set.
+ * The image generation and execution of the kernel happens inside
+ * the generate_image() function.
  *
  * By changing COMPUTE_DEVICE defined in setup_OpenCL.h the image can be
  * calculated either on the CPU or if available on a GPU.
@@ -214,7 +215,7 @@ int setup_OpenCL(unsigned char *palette, void *OpenCLdata)
   #if OS_FEDORA
 
   data->commands = clCreateCommandQueueWithProperties(data->context, device,
-                                                     0, &err);
+                                                      0, &err);
   if (err != CL_SUCCESS)
   {
     printf("Error: Failed to create a command commands!\n");
@@ -315,21 +316,21 @@ int setup_OpenCL(unsigned char *palette, void *OpenCLdata)
     return EXIT_FAILURE;
   }
 
-  /*---------------------------------------------------------------------------*/
-  /* S E T  K E R N E L  A R G U M E N T S                                     */
-  /*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+/* S E T  K E R N E L  A R G U M E N T S                                     */
+/*---------------------------------------------------------------------------*/
 
-    err =  clSetKernelArg(data->kernel, 0, sizeof(cl_mem), &data->imgb);
-    err |= clSetKernelArg(data->kernel, 7, sizeof(cl_mem), &data->colpb);
-    err |= clSetKernelArg(data->kernel, 8, sizeof(int), &WIDTH);
-    err |= clSetKernelArg(data->kernel, 9, sizeof(int), &HEIGHT);
+  err =  clSetKernelArg(data->kernel, 0, sizeof(cl_mem), &data->imgb);
+  err |= clSetKernelArg(data->kernel, 7, sizeof(cl_mem), &data->colpb);
+  err |= clSetKernelArg(data->kernel, 8, sizeof(int), &WIDTH);
+  err |= clSetKernelArg(data->kernel, 9, sizeof(int), &HEIGHT);
 
-    if (err != CL_SUCCESS)
-    {
-      printf("Error: Failed to set kernel arguments! %d\n", err);
-      mem_cleanup_opencl(data);
-      return EXIT_FAILURE;
-    }
+  if (err != CL_SUCCESS)
+  {
+    printf("Error: Failed to set kernel arguments! %d\n", err);
+    mem_cleanup_opencl(data);
+    return EXIT_FAILURE;
+  }
 
   return EXIT_SUCCESS;
 }
