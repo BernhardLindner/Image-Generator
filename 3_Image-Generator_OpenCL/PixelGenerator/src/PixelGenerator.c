@@ -7,7 +7,7 @@
  *                    cleanup.c                        cleanup.h
  *                    cntrl_c_handler.c                cntrl_c_handler.h
  *                    colorpalette.c                   colorpalette.h
- *                    mandelbrot.c                     mandelbrot.h
+ *                    setup_OpenCL.c                   setup_OpenCL.h
  *                    install_signal_handler.c         install_signal_handler.h
  *                    mem_cleanup_opencl.c             mem_cleanup_opencl.h
  *                                                     global_ids.h
@@ -38,9 +38,10 @@
 #include "numberOfPixel.h"
 #include "cntrl_c_handler.h"
 #include "universalSettings.h"
+#include "generate_image.h"
 #include "install_signal_handler.h"
 #include "colorpalette.h"
-#include "mandelbrot.h"
+#include "setup_OpenCL.h"
 #include "cleanup.h"
 #include "time.h"
 
@@ -250,6 +251,17 @@ int main(int argc, char *argv[])
   }
 
 /*---------------------------------------------------------------------------*/
+/* S E T U P  O P E N C L                                                    */
+/*---------------------------------------------------------------------------*/
+
+  if (setup_OpenCL(palette_for_openCL, &g_data) == -1)
+  {
+    printf("Error setting up OpenCL\n");
+    cleanup();
+    return EXIT_FAILURE;
+  }
+
+/*---------------------------------------------------------------------------*/
 /* G E N E R A T E  I M A G E  D A T A                                       */
 /*                                                                           */
 /* W R I T E  I M A G E  T O  S H A R E D  M E M O R Y                       */
@@ -282,7 +294,7 @@ int main(int argc, char *argv[])
  * to the local buffer.
  */
 
-    if (generate_image(palette_for_openCL, g_buffer) == -1)
+    if (generate_image(g_buffer, &g_data) == -1)
     {
       printf("Error generating image data\n");
       cleanup();

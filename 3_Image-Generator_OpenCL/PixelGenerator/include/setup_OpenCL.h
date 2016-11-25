@@ -1,5 +1,5 @@
 /*
- * FILE = HEADER: /include/madelbrot.h
+ * FILE = HEADER: /include/setup_OpenCL.h
  *
  * Copyright (c) 2016 Bernhard Lindner
  *
@@ -8,8 +8,8 @@
  */
 
 
-#ifndef _mandelbrot_
-#define _mandelbrot_
+#ifndef _setup_OpenCL_
+#define _setup_OpenCL_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +38,6 @@ struct cl_mem_data
   cl_kernel        kernel;
 };
 
-int generate_image(unsigned char *palette, unsigned char *imagebuffer);
+int setup_OpenCL(unsigned char *palette, void *OpenCLdata);
 
 #endif
