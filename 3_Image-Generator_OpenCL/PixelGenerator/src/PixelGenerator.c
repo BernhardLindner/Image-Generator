@@ -8,6 +8,7 @@
  *                    cntrl_c_handler.c                cntrl_c_handler.h
  *                    colorpalette.c                   colorpalette.h
  *                    setup_OpenCL.c                   setup_OpenCL.h
+ *                    generate_image.c                 generate_image.h
  *                    install_signal_handler.c         install_signal_handler.h
  *                    mem_cleanup_opencl.c             mem_cleanup_opencl.h
  *                                                     global_ids.h
