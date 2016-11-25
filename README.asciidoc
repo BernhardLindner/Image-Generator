@@ -57,14 +57,26 @@ images at once.
 
 == Version
 
-1.0
+*1.1*
 
 NOTE: After having been introduced to pthreads, OpenMP, OpenCL, SIMD this has
 been a first attempt of implementing them to improve the performance of
 the image generation. The implementation is mostly try and error and for that
 matter should not be viewed as the right way to do so.
 
-== Useage
+== Changelog
+
+*Version 1.1*
+Split OpenCL setup (creating context, building program, kernel) and
+execution of the kernel (calculating the mandelbrot set, generating the image)
+into separate functions (setup_OpenCL() and generate_image()) to avoid
+rebuilding the same OpenCL kernel after every image calculation and wasting
+CPU time.
+
+*Version 1.0*
+Initial Release
+
+== Usage
 
 The Image-Generator folder contains five subdirectories each representing a full
 version of the "ImageWriter" and "PixelGenerator" program with respective
@@ -173,8 +185,8 @@ OSX 10.9.5
 * Image-Generator_pthread -o3 -mavx -ffast-math -> 331 Images
 * Image-Generator_OpenMP -> 180 Images
 * Image-Generator_OpenMP -o3 -mavx -ffast-math -> 323 Images
-* Image-Generator_OpenCL CPU -> 524 Images
-* Image-Generator_OpenCL GPU GeForce GT 650M -> 345 Images
+* Image-Generator_OpenCL CPU -> 554 Images
+* Image-Generator_OpenCL GPU GeForce GT 650M -> 363 Images
 * Image-Generator_pthread-SIMD-SSE -> 510 Images
 * Image-Generator_pthread-SIMD-AVX -> 847 Images
 
@@ -183,6 +195,7 @@ FEDORA 23
 * Image-Generator_pthread -> 182 Images
 * Image-Generator_pthread -o3 -mavx -ffast-math -> 335 Images
 * Image-Generator_OpenMP -o3 -mavx -ffast-math -> 319 Images
+* Image-Generator_OpenCL CPU -> 684 Images
 * Image-Generator_pthread-SIMD-SSE -> 502 Images
 * Image-Generator_pthread-SIMD-AVX -> 850 Images
 
@@ -194,8 +207,8 @@ OSX 10.9.5
 * Image-Generator_pthread -o3 -mavx -ffast-math -> 72 Images
 * Image-Generator_OpenMP -> 55 Images
 * Image-Generator_OpenMP -o3 -mavx -ffast-math -> 72 Images
-* Image-Generator_OpenCL GPU GeForce GT 650M -> 81 Images
-* Image-Generator_OpenCL CPU -> 105 Images
+* Image-Generator_OpenCL GPU GeForce GT 650M -> 82 Images
+* Image-Generator_OpenCL CPU -> 111 Images
 * Image-Generator_pthread-SIMD-SSE -> 97 Images
 * Image-Generator_pthread-SIMD-AVX -> 144 Images
 
@@ -204,13 +217,12 @@ FEDORA 23
 * Image-Generator_pthread -> 55 Images
 * Image-Generator_pthread -o3 -mavx -ffast-math -> 71 Images
 * Image-Generator_OpenMP -o3 -mavx -ffast-math -> 70 Images
+* Image-Generator_OpenCL CPU -> 133 Images
 * Image-Generator_pthread-SIMD-SSE -> 96 Images
 * Image-Generator_pthread-SIMD-AVX -> 146 Images
 
-NOTE: For the OpenCL: Handing Image WIDTH and HEIGHT to the kernel as arguments
-results in slower performance than hardcoding width and height directly into
-the kernelsource. The OpenCL performance could probably be improved by making
-better use of the OpenCL memory model.
+NOTE: The OpenCL performance could probably be improved by making better use of
+the OpenCL memory model.
 
 == Additional Information
 
@@ -222,7 +234,7 @@ results in an integer value, it should be possible to use it.
 
 For the OpenCL version it can be changed if the kernel should be executed on
 the CPU or GPU by changing COMPUTE_DEVICE in
-link:3_Image-Generator_OpenCL/PixelGenerator/include/mandelbrot.h[/include/mandelbrot.h]
+link:3_Image-Generator_OpenCL/PixelGenerator/include/setup_OpenCL.h[/include/setup_OpenCL.h]
 
 In the file link:1_Image-Generator_pthread/shared/include/numberOfPixel.h[/shared/include/numberOfPixel.h]
 LARGE_IMAGE can be set to 1 or 0. Setting large image to 1 will generate
