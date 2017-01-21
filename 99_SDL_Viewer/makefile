@@ -11,6 +11,15 @@ LIBS     = `pkg-config sdl2 --libs`
 SRC      = $(SRCPATH)/image_viewer.c
 SRC     += $(wildcard $(SHRPATH)/*.c)
 TARGET   = image_viewer
+
+PLATFORM = $(shell uname -s)
+ifeq ($(PLATFORM), Darwin)
+	INCPATH  += -I /Library/Frameworks/SDL2.framework/Headers
+	FWORK    = -framework SDL2
+	LIBS     =
+	CFLAGS   = -Wall -g -O3
+endif
+
 $(TARGET): $(SRC)
 	$(CC) -o $(TARGET) $(CFLAGS) $(SRC) $(INCPATH) $(LIBPATH) $(LIBS)
 
