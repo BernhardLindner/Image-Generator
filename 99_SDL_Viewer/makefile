@@ -15,8 +15,7 @@ TARGET   = image_viewer
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM), Darwin)
 	INCPATH  += -I /Library/Frameworks/SDL2.framework/Headers
-	FWORK    = -framework SDL2
-	LIBS     =
+	LIBS     = -framework SDL2
 	CFLAGS   = -Wall -g -O3
 endif
 
@@ -25,4 +24,3 @@ $(TARGET): $(SRC)
 
 clean:
 	$(RM) *~ *.o $(TARGET)
-
