@@ -1,7 +1,7 @@
 == Changelog
 
 *Version 1.2*
-Merged Christian Fibich´s link:SDL_Viewer[99_SDL_Viewer]
+Merged Christian Fibich´s link:99_SDL_Viewer[SDL_Viewer]
 
 *Version 1.1*
 Split OpenCL setup (creating context, building program, kernel) and
