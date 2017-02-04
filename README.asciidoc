@@ -64,7 +64,7 @@ images at once.
 == Version
 
 *1.2*
-See link:CHANGELOG[CHANGELOG.asciidoc] for details.
+See link:CHANGELOG.asciidoc[CHANGELOG] for details.
 
 NOTE: After having been introduced to pthreads, OpenMP, OpenCL, SIMD this has
 been a first attempt of implementing these techniques to improve the performance
@@ -222,7 +222,7 @@ the OpenCL memory model.
 == Additional Information
 
 For the versions using pthreads the number of threads is set to 8
-link:thread_handler.h[/PixelGenerator/include/thread_handler.h]
+link:1_Image-Generator_pthread/PixelGenerator/include/thread_handler.h[thread_handler.h]
 but changing it to 1, 2 or 4 is also possible.
 If you want to choose a custom image size make sure that the HEIGHT of the
 image divided by the number of threads you want to use,
@@ -230,12 +230,12 @@ results in an integer value.
 
 For the OpenCL version it can be changed if the kernel should be executed on
 the CPU or GPU by changing COMPUTE_DEVICE in
-link:setup_OpenCL.h[/include/setup_OpenCL.h]
+link:3_Image-Generator_OpenCL/PixelGenerator/include/setup_OpenCL.h[setup_OpenCL.h]
 
-In the file link:numberOfPixel.h[/shared/include/numberOfPixel.h]
+In the file link:1_Image-Generator_pthread/shared/include/numberOfPixel.h[numberOfPixel.h]
 LARGE_IMAGE can be set to 1 or 0. Setting large image to 1 will generate
 images of 2560 x 1920. Setting it to 0 will generate images of 800 x 600.
-In the file link:numberOfPixel.c[/shared/src/numberOfPixel.c]
+In the file link:1_Image-Generator_pthread/shared/src/numberOfPixel.c[numberOfPixel.c]
 you can manually change the width and height of the image.
 If you set LARGE_IMAGE to 1 the shared memory segment may be bigger than
 the maximum shared memory size set on your system. So you have to increase
