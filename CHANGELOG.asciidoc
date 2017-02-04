@@ -1,0 +1,14 @@
+== Changelog
+
+*Version 1.2*
+Merged Christian Fibich´s link:SDL_Viewer[99_SDL_Viewer]
+
+*Version 1.1*
+Split OpenCL setup (creating context, building program, kernel) and
+execution of the kernel (calculating the Mandelbrot set, generating the image)
+into separate functions (setup_OpenCL() and generate_image()) to avoid
+rebuilding the same OpenCL kernel after every image calculation and wasting
+CPU time.
+
+*Version 1.0*
+Initial Release
