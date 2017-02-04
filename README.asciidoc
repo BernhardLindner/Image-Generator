@@ -1,29 +1,31 @@
 Image Generator
 ===============
 
-This project at its core is a System Programming example, demonstrating the use
+This project is at its core a System Programming example, demonstrating the use
 of shared memory, semaphores, signal handling and pthreads in c.
 It consist of an "ImageWriter" program and a "PixelGenerator" program.
-The "PixelGenerator" continuously calculates images of the mandelbrot set and
+The "PixelGenerator" continuously calculates images of the Mandelbrot set and
 writes them into a shared memory segment. The "ImageWriter" program reads the
-image out of the shared memory segment and stores the image in a P6 ppm file.
+image data out of the shared memory segment and stores the image in a P6 ppm
+file.
 
 The shared memory segment can hold one image at a time. The "PixelGenerator" and
 "ImageWriter" are synchronized by semaphores to avoid simultaneous access of
 the shared memory segment.
 
-The "PixelGenerator" generates an image of the mandelbrot set an alters
+The "PixelGenerator" generates an image of the Mandelbrot set an alters
 start parameters each time a new images is calculated to zoom into a section
-of the mandelbrot set.
+of the Mandelbrot set.
 
-The computation of the mandelbrot set can be done by multiple threads.
+The computation of the Mandelbrot set can be done by multiple threads.
 The number of threads to process the image, as well as the width and height
 of the image can be changed.
-Depending on the number of threads the computation of one image is split on
-several threads. For example: If the number of threads is set to 4, every thread
-generates a quarter of the image. If image width is set to 800- and image height
-to 600 pixels, thread number one will calculated image row 0 to 149,
-thread number two will process line 150 to 299, thread three 300 - 449 and
+Depending on the specified number of threads the computation of one image is
+either done by one thread or split on several threads.
+For example: If the number of threads is set to 4,
+every thread generates a quarter of the image. If image width is set to 800- and
+image height to 600 pixels, thread number one will calculated image row 0 to
+149, thread number two will process line 150 to 299, thread three 300 - 449 and
 thread four row 450 to 599.
 
 This project has been extended to use the OpenMP library or the OpenCL framework
@@ -35,15 +37,19 @@ Using OpenCL it can be specified if the calculation of the image should be done
 by the CPU or the GPU.
 
 The processing of the image with use of phtreads or the OpenMP library
-happens concurrently, without context switching, if the CPU has enough cores
+happens concurrently - without context switching - if the CPU has enough cores
 to execute all of the specified threads at the same time.
-Until now each thread can only calculate on pixel at a time. Making use of
+
+At least for the version of the program using pthreads for parallelization
+each thread can only calculate one pixel at a time. Making use of
 SIMD "Single Instruction Multiple Data" Intrinsics however, each thread can
 process multiple pixels at the same time.
-The calculation of the mandelbrot set is done by applying mathematical
-operations on each pixel over and over again. Interim results are stored in
-64-Bit double variables.
-Using SIMD Intrinsics for SSE it is possible to load up 128-Bit wide
+The Mandelbrot set is obtained from quadratic recurrence equation
+z~n+1~ = z~n~^2^ + C .
+The calculation of the Mandelbrot set is done by applying mathematical
+operations on each pixel of the image over and over again.
+Interim results are thereby stored in 64-Bit double variables.
+Using SIMD Intrinsics for SSE it is possible to load 128-Bit wide
 registers with two 64-Bit double variables. This makes it possible to operate
 on two variables - two pixels - at once, by performing calculations on the
 128-Bit register, instead of having to apply the same operations successively
@@ -57,24 +63,13 @@ images at once.
 
 == Version
 
-*1.1*
+*1.2*
+See link:CHANGELOG[CHANGELOG.asciidoc] for details.
 
 NOTE: After having been introduced to pthreads, OpenMP, OpenCL, SIMD this has
-been a first attempt of implementing them to improve the performance of
-the image generation. The implementation is mostly try and error and for that
-matter should not be viewed as the right way to do so.
-
-== Changelog
-
-*Version 1.1*
-Split OpenCL setup (creating context, building program, kernel) and
-execution of the kernel (calculating the mandelbrot set, generating the image)
-into separate functions (setup_OpenCL() and generate_image()) to avoid
-rebuilding the same OpenCL kernel after every image calculation and wasting
-CPU time.
-
-*Version 1.0*
-Initial Release
+been a first attempt of implementing these techniques to improve the performance
+of the image generation. The implementation is mostly try and error and for that
+matter should not be viewed as the right way to use these methods.
 
 == Usage
 
@@ -104,7 +99,7 @@ The subdirectory "PixelGenerator" and "ImageWriter" each hold a "src" and
 "include" directory as well as a makefile.
 The subdirectory shared holds a src and include directory for files used by
 both programs.
-The makefile at the top changes into the both subdirectories - "ImageWriter"
+The makefile at the top changes into both subdirectories - "ImageWriter"
 and "PixelGenerator" and executes the make command there.
 
 Start each program in a separate terminal window or tab and the
@@ -145,7 +140,7 @@ explicitly with SIMD AVX Intrinsics.
 
 === link:3_Image-Generator_OpenCL[3_Image-Generator_OpenCL]
 
-On OSX OpenCL works out of the box. If you are running this under Fedora you
+On OSX OpenCL works out of the box. If you want to run this on Linux you
 will need the OpenCL headers and library to compile the code and the
 OpenCL driver runtime to be able to run the executable.
 For that purpose you could install the
@@ -227,19 +222,20 @@ the OpenCL memory model.
 == Additional Information
 
 For the versions using pthreads the number of threads is set to 8
-link:1_Image-Generator_pthread/PixelGenerator/include/thread_handler.h[/PixelGenerator/include/thread_handler.h]
-but changing it to 1, 2 or 4 is also possible. If the HEIGHT of the
-Image (which is set to 600) divided by the number of threads you want to use,
-results in an integer value, it should be possible to use it.
+link:thread_handler.h[/PixelGenerator/include/thread_handler.h]
+but changing it to 1, 2 or 4 is also possible.
+If you want to choose a custom image size make sure that the HEIGHT of the
+image divided by the number of threads you want to use,
+results in an integer value.
 
 For the OpenCL version it can be changed if the kernel should be executed on
 the CPU or GPU by changing COMPUTE_DEVICE in
-link:3_Image-Generator_OpenCL/PixelGenerator/include/setup_OpenCL.h[/include/setup_OpenCL.h]
+link:setup_OpenCL.h[/include/setup_OpenCL.h]
 
-In the file link:1_Image-Generator_pthread/shared/include/numberOfPixel.h[/shared/include/numberOfPixel.h]
+In the file link:numberOfPixel.h[/shared/include/numberOfPixel.h]
 LARGE_IMAGE can be set to 1 or 0. Setting large image to 1 will generate
 images of 2560 x 1920. Setting it to 0 will generate images of 800 x 600.
-In the file link:1_Image-Generator_pthread/shared/src/numberOfPixel.c[/shared/src/numberOfPixel.c]
+In the file link:numberOfPixel.c[/shared/src/numberOfPixel.c]
 you can manually change the width and height of the image.
 If you set LARGE_IMAGE to 1 the shared memory segment may be bigger than
 the maximum shared memory size set on your system. So you have to increase
@@ -267,8 +263,8 @@ The video that introduced me to SIMD:
 
 * "Handmade Hero Day 115 - SIMD Basics" https://www.youtube.com/watch?v=YnnTb0AQgYM
 
-Two great SIMD mandelbrot examples that helped me designing the termination
-condition of the mandelbrot calculation.
+Two great SIMD Mandelbrot examples that helped me designing the termination
+condition of the Mandelbrot calculation.
 
 * https://github.com/skeeto/mandel-simd by Chris Wellons
 
