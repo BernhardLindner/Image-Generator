@@ -64,6 +64,7 @@ images at once.
 == Version
 
 *1.2*
+
 See link:CHANGELOG.asciidoc[CHANGELOG] for details.
 
 NOTE: After having been introduced to pthreads, OpenMP, OpenCL, SIMD this has
@@ -104,6 +105,9 @@ and "PixelGenerator" and executes the make command there.
 
 Start each program in a separate terminal window or tab and the
 "ImageWriter" will start dumping images into your current directory.
+
+In addition to the ImageWriter a SDL_Viewer has been added.
+See link:99_SDL_Viewer[99_SDL_Viewer] for more details.
 
 To Quit the programs you have to press "ctrl-c" as both programs run in an
 endless loop. Terminating the "PixelGenerator" by pressing ctrl-c will
