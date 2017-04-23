@@ -63,7 +63,7 @@ images at once.
 
 == Version
 
-*1.2*
+*1.2.1*
 
 See link:CHANGELOG.asciidoc[CHANGELOG] for details.
 

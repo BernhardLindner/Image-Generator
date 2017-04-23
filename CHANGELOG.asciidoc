@@ -1,5 +1,9 @@
 == Changelog
 
+*Version 1.2.1*
+* Added "make clean" routine to toplevel makefile.
+* Moved definition of global variables from .h to .c
+
 *Version 1.2*
 Merged Christian Fibich´s link:99_SDL_Viewer[SDL_Viewer]
 
