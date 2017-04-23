@@ -4,4 +4,4 @@ all:
 
 clean:
 	cd ./PixelGenerator; make clean; cd ./../ImageWriter; make clean;
-	rm image-*.ppm
+	rm -f image-*.ppm
