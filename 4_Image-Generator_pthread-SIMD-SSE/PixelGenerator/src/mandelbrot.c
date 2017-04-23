@@ -4,7 +4,6 @@
  * RELATED FILES:     *.c                              *.h
  *                    thread_handler.c                 thread_handler.h
  *                    numberOfPixel.c                  numberOfPixel.h
- *                                                     global_ids.h
  *
  * This function takes a colorpalette created by the function
  * create_color_palette() and the unsigned char *pointer to a local imagebuffer
@@ -29,8 +28,15 @@
 #include <stdio.h>
 #include <pthread.h>
 #include "numberOfPixel.h"
-#include "global_ids.h"
 #include "thread_handler.h"
+
+/*
+ * GLOBALS that need to be accessed by the SIGINT handler
+ * (declared in thread_handler.h)
+ */
+
+pthread_t g_thread[number_of_threads];
+int g_thread_aliveness[number_of_threads];
 
 int generate_image(unsigned char palette[][3], unsigned char *imagebuffer)
 {

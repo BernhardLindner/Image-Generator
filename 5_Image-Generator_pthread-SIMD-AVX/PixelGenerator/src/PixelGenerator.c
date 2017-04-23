@@ -12,7 +12,7 @@
  *                    install_signal_handler.c         install_signal_handler.h
  *                    interrupt_handler.c              interrupt_handler.h
  *                    cleanup_thread_handler.c         cleanup_thread_handler.h
- *                                                     global_ids.h
+ *                    global_ids.c                     global_ids.h
  *                                                     universalSettings.h
  *
  * DEPENDS ON:        imageWriter program

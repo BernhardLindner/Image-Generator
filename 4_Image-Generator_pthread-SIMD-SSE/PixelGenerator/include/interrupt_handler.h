@@ -10,9 +10,6 @@
 #ifndef _interrupt_handler_
 #define _interrupt_handler_
 
-#include "global_ids.h"
-#include <stdlib.h>
-
 void interrupt_handler(int signum);
 
 #endif

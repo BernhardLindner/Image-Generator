@@ -12,9 +12,9 @@
 
 #include <stdio.h>
 
-int g_shmid;
-int g_semid;
-unsigned char *g_buffer;
-unsigned char *g_membuf;
+extern int g_shmid;
+extern int g_semid;
+extern unsigned char *g_buffer;
+extern unsigned char *g_membuf;
 
 #endif

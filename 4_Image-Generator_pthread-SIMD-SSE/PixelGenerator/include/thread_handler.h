@@ -22,12 +22,8 @@
 
 #define number_of_threads 8 // Tested with 1, 2, 4 and 8 threads
 
-/*
- * creating the number of threads specified in thread_handler.h
- */
-
-pthread_t g_thread[number_of_threads];
-int g_thread_aliveness[number_of_threads];
+extern pthread_t g_thread[number_of_threads];
+extern int g_thread_aliveness[number_of_threads];
 
 void *thandler(void *ptr);
 void cleanup_thread_handler(void *p);

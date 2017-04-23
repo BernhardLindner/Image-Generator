@@ -6,7 +6,6 @@
  *                    install_signal_handler.c         install_signal_handler.h
  *                    interrupt_handler.c              interrupt_handler.h
  *                    cleanup_thread_handler.c         cleanup_thread_handler.h
- *                                                     global_ids.h
  *                                                     thread_handler.h
  *                                                     universalSettings.h
  *
@@ -29,7 +28,6 @@
 #include <signal.h>
 
 #include "numberOfPixel.h"
-#include "global_ids.h"
 #include "thread_handler.h"
 #include "interrupt_handler.h"
 #include "universalSettings.h"

@@ -13,10 +13,10 @@
 #include <stdio.h>
 #include "setup_OpenCL.h"
 
-int g_shmid;
-int g_semid;
-unsigned char *g_buffer;
-unsigned char *g_membuf;
-struct cl_mem_data g_data;
+extern int g_shmid;
+extern int g_semid;
+extern unsigned char *g_buffer;
+extern unsigned char *g_membuf;
+extern struct cl_mem_data g_data;
 
 #endif

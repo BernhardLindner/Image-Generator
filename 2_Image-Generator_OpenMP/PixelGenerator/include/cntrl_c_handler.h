@@ -10,9 +10,6 @@
 #ifndef _cntrl_c_handler_
 #define _cntrl_c_handler_
 
-#include "global_ids.h"
-#include <stdlib.h>
-
 void cntrl_c_handler(int signum);
 
 #endif

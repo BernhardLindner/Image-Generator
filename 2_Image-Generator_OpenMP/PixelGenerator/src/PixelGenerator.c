@@ -9,7 +9,7 @@
  *                    colorpalette.c                   colorpalette.h
  *                    mandelbrot.c                     mandelbrot.h
  *                    install_signal_handler.c         install_signal_handler.h
- *                                                     global_ids.h
+ *                    global_ids.c                     global_ids.h
  *                                                     universalSettings.h
  *
  * DEPENDS ON:        imageWriter program
