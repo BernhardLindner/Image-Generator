@@ -7,8 +7,8 @@
  *                    cleanupWriter.c                  cleanupWriter.h
  *                    cntrl_c_handler_Writer.c         cntrl_c_handler_Writer.h
  *                    install_signal_handler.C         install_signal_handler.h
+ *                    global_ids_W.c                   global_ids_W.h
  *                                                     universalSettings.h
- *                                                     global_ids_W.h
  *
  * DEPENDS ON:        pixelGenerator program
  *

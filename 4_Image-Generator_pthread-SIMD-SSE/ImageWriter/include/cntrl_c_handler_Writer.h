@@ -10,9 +10,6 @@
 #ifndef _cntrl_c_handler_Writer_
 #define _cntrl_c_handler_Writer_
 
-#include "global_ids_W.h"
-#include <stdlib.h>
-
 void cntrl_c_handler_W(int signum);
 
 #endif
