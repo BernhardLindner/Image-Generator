@@ -176,49 +176,61 @@ The link:5_Image-Generator_pthread-SIMD-AVX/PixelGenerator/makefile[makefile] wi
 Amount of pictures after about one minute of execution on a
 2012 MacBook Pro with i7 3615QM @2,3GHz and GeForce GT 650M:
 
-*Image resolution 800x600, max iterations 1023:*
+=== Image resolution 800x600, max iterations 1023:
 
-OSX 10.9.5
+*OSX 10.9.5*
 
-* Image-Generator_pthread -> 185 Images
-* Image-Generator_pthread -o3 -mavx -ffast-math -> 331 Images
-* Image-Generator_OpenMP -> 180 Images
-* Image-Generator_OpenMP -o3 -mavx -ffast-math -> 323 Images
-* Image-Generator_OpenCL CPU -> 554 Images
-* Image-Generator_OpenCL GPU GeForce GT 650M -> 363 Images
-* Image-Generator_pthread-SIMD-SSE -> 510 Images
-* Image-Generator_pthread-SIMD-AVX -> 847 Images
+|===
+| *Method of parallelization* |*# images after about 1 minute of execution*
+| pthread |-> 185 Images
+| pthread -o3 -mavx -ffast-math |-> 331 Images
+| OpenMP |-> 180 Images
+| OpenMP -o3 -mavx -ffast-math |-> 323 Images
+| OpenCL CPU |-> 554 Images
+| OpenCL GPU GeForce GT 650M |-> 363 Images
+| pthread-SIMD-SSE |-> 510 Images
+| pthread-SIMD-AVX |-> 847 Images
+|===
 
-FEDORA 23
+*FEDORA 23*
 
-* Image-Generator_pthread -> 182 Images
-* Image-Generator_pthread -o3 -mavx -ffast-math -> 335 Images
-* Image-Generator_OpenMP -o3 -mavx -ffast-math -> 319 Images
-* Image-Generator_OpenCL CPU -> 684 Images
-* Image-Generator_pthread-SIMD-SSE -> 502 Images
-* Image-Generator_pthread-SIMD-AVX -> 850 Images
+|===
+| *Method of parallelization* |*# images after about 1 minute of execution*
+| pthread |-> 182 Images
+| pthread -o3 -mavx -ffast-math |-> 335 Images
+| OpenMP -o3 -mavx -ffast-math |-> 319 Images
+| OpenCL CPU |-> 684 Images
+| pthread-SIMD-SSE |-> 502 Images
+| pthread-SIMD-AVX |-> 850 Images
+|===
 
-*Image resolution 2560x1920, max iterations 1023:*
+=== Image resolution 2560x1920, max iterations 1023:
 
-OSX 10.9.5
+*OSX 10.9.5*
 
-* Image-Generator_pthread -> 55 Images
-* Image-Generator_pthread -o3 -mavx -ffast-math -> 72 Images
-* Image-Generator_OpenMP -> 55 Images
-* Image-Generator_OpenMP -o3 -mavx -ffast-math -> 72 Images
-* Image-Generator_OpenCL GPU GeForce GT 650M -> 82 Images
-* Image-Generator_OpenCL CPU -> 111 Images
-* Image-Generator_pthread-SIMD-SSE -> 97 Images
-* Image-Generator_pthread-SIMD-AVX -> 144 Images
+|===
+| *Method of parallelization* |*# images after about 1 minute of execution*
+| Image-Generator_pthread |-> 55 Images
+| Image-Generator_pthread -o3 -mavx -ffast-math |-> 72 Images
+| Image-Generator_OpenMP |-> 55 Images
+| Image-Generator_OpenMP -o3 -mavx -ffast-math |-> 72 Images
+| Image-Generator_OpenCL GPU GeForce GT 650M |-> 82 Images
+| Image-Generator_OpenCL CPU |-> 111 Images
+| Image-Generator_pthread-SIMD-SSE |-> 97 Images
+| Image-Generator_pthread-SIMD-AVX |-> 144 Images
+|===
 
-FEDORA 23
+*FEDORA 23*
 
-* Image-Generator_pthread -> 55 Images
-* Image-Generator_pthread -o3 -mavx -ffast-math -> 71 Images
-* Image-Generator_OpenMP -o3 -mavx -ffast-math -> 70 Images
-* Image-Generator_OpenCL CPU -> 133 Images
-* Image-Generator_pthread-SIMD-SSE -> 96 Images
-* Image-Generator_pthread-SIMD-AVX -> 146 Images
+|===
+| *Method of parallelization* |*# images after about 1 minute of execution*
+| Image-Generator_pthread |-> 55 Images
+| Image-Generator_pthread -o3 -mavx -ffast-math |-> 71 Images
+| Image-Generator_OpenMP -o3 -mavx -ffast-math |-> 70 Images
+| Image-Generator_OpenCL CPU |-> 133 Images
+| Image-Generator_pthread-SIMD-SSE |-> 96 Images
+| Image-Generator_pthread-SIMD-AVX |-> 146 Images
+|===
 
 NOTE: The OpenCL performance could probably be improved by making better use of
 the OpenCL memory model.
