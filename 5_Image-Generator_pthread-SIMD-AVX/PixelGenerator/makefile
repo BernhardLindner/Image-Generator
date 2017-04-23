@@ -15,4 +15,4 @@ $(TARGET): $(SRC)
 	$(CC) -o $(TARGET) $(CFLAGS) $(SRC) $(INCPATH) $(LIBPATH) $(LIBS)
 
 clean:
-	$(RM) *~ *.o $(TARGET)
+	$(RM) $(TARGET) $(TARGET).dSYM

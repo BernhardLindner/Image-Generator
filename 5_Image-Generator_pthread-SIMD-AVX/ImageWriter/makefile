@@ -7,12 +7,11 @@ SRCPATH  = ./src
 SHRPATH  = ./../shared/src
 INCPATH  = -I./include -I./../shared/include
 LIBPATH  =
-LIBS     = 
+LIBS     =
 SRC      = $(wildcard $(SRCPATH)/*.c)
 SRC     += $(wildcard $(SHRPATH)/*.c)
 $(TARGET): $(SRC)
 	$(CC) -o $(TARGET) $(CFLAGS) $(SRC) $(INCPATH) $(LIBPATH) $(LIBS)
 
 clean:
-	$(RM) *~ *.o $(TARGET)
-
+	$(RM) $(TARGET) $(TARGET).dSYM
