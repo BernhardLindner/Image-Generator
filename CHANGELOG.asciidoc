@@ -1,6 +1,8 @@
 == Changelog
 
 *Version 1.2.1*
+
+.Changes
 * Added "make clean" routine to toplevel makefile.
 * Moved definition of global variables from .h to .c
 
