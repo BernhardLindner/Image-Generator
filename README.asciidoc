@@ -178,58 +178,32 @@ Amount of pictures after about one minute of execution on a
 
 === Image resolution 800x600, max iterations 1023:
 
-*OSX 10.9.5*
-
 |===
-| *Method of parallelization* |*# images after about 1 minute of execution*
-| pthread |-> 185 Images
-| pthread -o3 -mavx -ffast-math |-> 331 Images
-| OpenMP |-> 180 Images
-| OpenMP -o3 -mavx -ffast-math |-> 323 Images
-| OpenCL CPU |-> 554 Images
-| OpenCL GPU GeForce GT 650M |-> 363 Images
-| pthread-SIMD-SSE |-> 510 Images
-| pthread-SIMD-AVX |-> 847 Images
-|===
-
-*FEDORA 23*
-
-|===
-| *Method of parallelization* |*# images after about 1 minute of execution*
-| pthread |-> 182 Images
-| pthread -o3 -mavx -ffast-math |-> 335 Images
-| OpenMP -o3 -mavx -ffast-math |-> 319 Images
-| OpenCL CPU |-> 684 Images
-| pthread-SIMD-SSE |-> 502 Images
-| pthread-SIMD-AVX |-> 850 Images
+| *Method of parallelization* 2+^| *# of images after about 1 minute of execution*
+|                                ^| *on OSX 10.9.5* ^| *on FEDORA 23*
+| pthread                        ^| 185             ^| 182
+| pthread -o3 -mavx -ffast-math  ^| 331             ^| 335
+| OpenMP                         ^| 180             ^| x
+| OpenMP -o3 -mavx -ffast-math   ^| 323             ^| 319
+| OpenCL CPU                     ^| 554             ^| 684
+| OpenCL GPU GeForce GT 650M     ^| 363             ^| x
+| pthread-SIMD-SSE               ^| 510             ^| 502
+| pthread-SIMD-AVX               ^| 847             ^| 850
 |===
 
 === Image resolution 2560x1920, max iterations 1023:
 
-*OSX 10.9.5*
-
 |===
-| *Method of parallelization* |*# images after about 1 minute of execution*
-| pthread |-> 55 Images
-| pthread -o3 -mavx -ffast-math |-> 72 Images
-| OpenMP |-> 55 Images
-| OpenMP -o3 -mavx -ffast-math |-> 72 Images
-| OpenCL GPU GeForce GT 650M |-> 82 Images
-| OpenCL CPU |-> 111 Images
-| pthread-SIMD-SSE |-> 97 Images
-| pthread-SIMD-AVX |-> 144 Images
-|===
-
-*FEDORA 23*
-
-|===
-| *Method of parallelization* |*# images after about 1 minute of execution*
-| pthread |-> 55 Images
-| pthread -o3 -mavx -ffast-math |-> 71 Images
-| OpenMP -o3 -mavx -ffast-math |-> 70 Images
-| OpenCL CPU |-> 133 Images
-| pthread-SIMD-SSE |-> 96 Images
-| pthread-SIMD-AVX |-> 146 Images
+| *Method of parallelization*  2+^| *# of images after about 1 minute of execution*
+|                                ^| *on OSX 10.9.5* ^| *on FEDORA 23*
+| pthread                        ^| 55              ^| 55
+| pthread -o3 -mavx -ffast-math  ^| 72              ^| 71
+| OpenMP                         ^| 55              ^| x
+| OpenMP -o3 -mavx -ffast-math   ^| 72              ^| 70
+| OpenCL CPU                     ^| 111             ^| 133
+| OpenCL GPU GeForce GT 650M     ^| 82              ^| x
+| pthread-SIMD-SSE               ^| 97              ^| 96
+| pthread-SIMD-AVX               ^| 144             ^| 146
 |===
 
 NOTE: The OpenCL performance could probably be improved by making better use of
