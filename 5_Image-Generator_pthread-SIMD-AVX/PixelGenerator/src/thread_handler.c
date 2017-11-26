@@ -285,7 +285,7 @@ void *thandler(void *ptr)
  * ((x * x) + (y * y)) < 4 rememberiteration will be incremented by 1.
  * The calculation will continue as long as all four pixels no longer meet the
  * condition. If three pixels have already fallen out of the condition but
- * the fourth one has not, the three finsihed pixels will unnecessarily continue
+ * the fourth one has not, the three finished pixels will unnecessarily continue
  * to be calculated.
  *
  * _mm_and_pd() computes the bitwise AND of all elements.
